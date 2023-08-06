@@ -15,7 +15,7 @@ export default function Navbar() {
               <div className="flex">
               <div className="w-24 h-16 md:w-28 md:h-20">
             <img
-              src={`${process.env.PUBLIC_URL}https://i.imgur.com/g047zKb.png`}
+              src={`${process.env.PUBLIC_URL}https://i.imgur.com/eRQNKoM.png`}
               alt="logo"
               className="object-contain w-full h-full"
             />
@@ -45,7 +45,7 @@ export default function Navbar() {
               <li className="nav-item">
                 <a
                   className="flex items-center px-3 py-2 text-xs font-bold leading-snug uppercase text-slate-500 hover:opacity-75"
-                  href="/"
+                  href="/Home"
                 >
                   <i className="text-lg opacity-75 text-slate-500 fab fa-facebook-square leading-lg"></i><span className="ml-2">Home</span>
                 </a>
@@ -53,7 +53,7 @@ export default function Navbar() {
               <li className="nav-item">
                 <a
                   className="flex items-center px-3 py-2 text-xs font-bold leading-snug uppercase text-slate-500 hover:opacity-75"
-                  href="/Gallery"
+                  href="/Portfolio"
                 >
                   <i className="text-lg opacity-75 text-slate-500 fab fa-facebook-square leading-lg"></i><span className="ml-2">Portfolio</span>
                 </a>

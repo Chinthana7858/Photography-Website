@@ -1,10 +1,11 @@
 
-import { useEffect, useState } from "react";
-import { ChangeButton, CloseButton } from "../Ui/Atoms/Buttons";
-import Footer from "../Ui/Templates/Footer";
-import NavBar from "../Ui/Templates/NavBar";
 import axios from "axios";
-import BasicPhotoPopup from "../Popups/BasicPhotoPopup";
+import { useEffect, useState } from "react";
+import BasicPhotoPopup from "../../Popups/BasicPhotoPopup";
+import { ChangeButton, CloseButton } from "../../Ui/Atoms/Buttons";
+import Footer from "../../Ui/Templates/Footer";
+import PublicNavBar from "../../Ui/Templates/PublicNavBar";
+
 
 interface Details {
   detailsId: string;
@@ -18,7 +19,7 @@ interface Details {
   twitterLink: string;
 }
 
-function About() {
+function PublicAbout() {
   const [visibleChangeAboutPhoto, setVisibleChangeAboutPhoto] = useState(false);
   const [details, setDetails] = useState<Details | null>(null);
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
@@ -60,7 +61,7 @@ const fetchPhotoUrl = async () => {
     return (
       <div>
         <div className='fixed z-20 w-full'>
-          <NavBar/>
+          <PublicNavBar/>
         </div>
 
         <div className="lg:flex-row flex flex-col w-[100vw] h-full  bg-slate-400">
@@ -76,9 +77,6 @@ const fetchPhotoUrl = async () => {
                   className="block object-cover object-center w-full h-full lg:pt-[10vh] pt-0"
                   src={photoUrl??''}
                 />
-                   <button onClick={() => { setVisibleChangeAboutPhoto(true)}} className="px-5">
-                   <ChangeButton/>
-                   </button>
           </div>
         </div>
         <div className="">
@@ -95,5 +93,5 @@ const fetchPhotoUrl = async () => {
       </div> 
     );
   }
-  export default About;
+  export default PublicAbout;
   

@@ -1,9 +1,11 @@
-import React  from "react";
+import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Link } from "react-router-dom";
-export default function Navbar() {
+import { Switch } from '@headlessui/react'
+
+export default function PublicNavbar() {
   
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const [dark, setDark] = useState(false)
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 mb-3 bg-slate-100">
@@ -41,49 +43,49 @@ export default function Navbar() {
           >
             <ul className="flex flex-col list-none lg:flex-row lg:ml-auto">
               <li className="nav-item">
-                <Link
+                <a
                   className="flex items-center px-3 py-2 text-xs font-bold leading-snug uppercase text-slate-500 hover:opacity-75"
-                  to="/Home/Pw-Admin"
+                  href="/"
                 >
                   <i className="text-lg opacity-75 text-slate-500 fab fa-facebook-square leading-lg"></i><span className="ml-2">Home</span>
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link
+                <a
                   className="flex items-center px-3 py-2 text-xs font-bold leading-snug uppercase text-slate-500 hover:opacity-75"
-                  to="/Portfolio/Pw-Admin"
+                  href="/Portfolio"
                 >
                   <i className="text-lg opacity-75 text-slate-500 fab fa-facebook-square leading-lg"></i><span className="ml-2">Portfolio</span>
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link
+                <a
                   className="flex items-center px-3 py-2 text-xs font-bold leading-snug uppercase text-slate-500 hover:opacity-75"
-                  to="/About/Pw-Admin"
+                  href="/About"
                 >
                   <i className="text-lg opacity-75 text-slate-500 fab fa-twitter leading-lg"></i><span className="ml-2">About</span>
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link
+                <a
                   className="flex items-center px-3 py-2 text-xs font-bold leading-snug uppercase text-slate-500 hover:opacity-75"
-                  to="/Blogs/Pw-Admin"
+                  href="/Blogs"
                 >
                   <i className="text-lg opacity-75 text-slate-500 fab fa-pinterest leading-lg"></i><span className="ml-2">Blogs</span>
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link
+                <a
                   className="flex items-center px-3 py-2 text-xs font-bold leading-snug uppercase text-slate-500 hover:opacity-75"
-                  to="/Contact/Pw-Admin"
+                  href="/Contact"
                 >
                   <i className="text-lg opacity-75 text-slate-500 fab fa-pinterest leading-lg"></i><span className="ml-2">Contact</span>
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link
+                <a
                   className="flex items-center px-3 py-2 text-xs font-bold leading-snug uppercase text-slate-500 hover:opacity-75"
-                  to="#pablo"
+                  href="#pablo"
                 >
                   <i className="text-lg opacity-75 text-slate-500 fab fa-pinterest leading-lg"></i>
                   <span className="ml-2">
@@ -102,17 +104,8 @@ export default function Navbar() {
                  />
                  </Switch> */}
                   </span>
-                </Link>
+                </a>
               </li>
-{/*               
-              <li className="nav-item">
-                <Link
-                  className="flex px-3 text-xs font-bold leading-snug uppercase text-slate-500 hover:opacity-75"
-                  to="/Settings/Pw-Admin"
-                >
-                  <i className="opacity-75 text-slate-500 fab fa-pinterest"></i><span className="ml-2"><FcSettings size={28}/></span>
-                </Link>
-              </li> */}
             </ul>
           </div>
         </div>

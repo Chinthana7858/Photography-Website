@@ -19,21 +19,19 @@ export default function Footer() {
             Rights Reserved.
           </Typography>
           <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
-            <Typography as="a" href="#" className="transition-opacity opacity-80 hover:opacity-100">
+            <Typography as="a" href="https://www.facebook.com/chinthanaprabhashithatravelphotography" className="transition-opacity opacity-80 hover:opacity-100">
               <FaFacebook size={24}/>
             </Typography>
-            <Typography as="a" href="#" className="transition-opacity opacity-80 hover:opacity-100">
+            <Typography as="a" href="https://www.instagram.com/prchinthana/" className="transition-opacity opacity-80 hover:opacity-100">
               <FaInstagramSquare size={24}/>
             </Typography>
-            <Typography as="a" href="#" className="transition-opacity opacity-80 hover:opacity-100">
-              <FaTwitter size={24}/>
-            </Typography>
-            <Typography as="a" href="#" className="transition-opacity opacity-80 hover:opacity-100">
+            <Typography as="a" href="https://www.shutterstock.com/g/chinthana+a" className="transition-opacity opacity-80 hover:opacity-100">
               <SiShutterstock size={24}/>
             </Typography>
           </div>
         </div>
       </div>
+      
     </footer>
   );
 }

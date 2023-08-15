@@ -1,9 +1,10 @@
 import axios from "axios";
-import NavBar from "../Ui/Templates/NavBar";
 import { useEffect, useState } from "react";
-import { AddNewButton, CloseButton } from "../Ui/Atoms/Buttons";
-import AddPortfolioPopup from "../Popups/AddPortfolioPopup";
-import Footer from "../Ui/Templates/Footer";
+import AddPortfolioPopup from "../../Popups/AddPortfolioPopup";
+import { AddNewButton, CloseButton } from "../../Ui/Atoms/Buttons";
+import Footer from "../../Ui/Templates/Footer";
+import NavBar from "../../Ui/Templates/NavBar";
+import PublicNavBar from "../../Ui/Templates/PublicNavBar";
 import { Link } from "react-router-dom";
 
 interface Portfolio {
@@ -14,7 +15,7 @@ interface Portfolio {
   dateTime:string;
 }
 
-function Portfolio() {
+function PublicPortfolio() {
   const [portfolio, setPortfolio] = useState<Portfolio[]>([]);
   const [visibleAddPortfolio, setVisibleAddPortfolio] = useState(false);
 
@@ -32,20 +33,17 @@ function Portfolio() {
   return (
     <div>
       <div className='fixed w-full'>
-        <NavBar />
+        <PublicNavBar />
       </div>
       <div className="md:pt-[10%] sm:pt-[20%] xs:pt-[25%] pl-[3%]">
         <div className="text-center py-[2vh] text-4xl text-slate-700">PORTFOLIO</div>
-        <div className="text-4xl text-center text-slate-700">
-          <button onClick={() =>{setVisibleAddPortfolio(true)}}><AddNewButton/></button>
-          </div>
       <table>
       <tbody>
   <div className="grid grid-cols-3 gap-4 xs:grid-cols-2">
     {portfolio
       .sort((a, b) => new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime())
       .map((portfolio) => (
-        <Link key={portfolio.id} to={`/Portfolio/${portfolio.id}/Pw-Admin`}>
+        <Link key={portfolio.id} to={`/Portfolio/${portfolio.id}`}>
           <div className="">
             <div className="text-xl font-semibold text-slate-600 xs:text-sm sm:text-lg">
               {portfolio.portfolioName}
@@ -80,4 +78,4 @@ function Portfolio() {
   );
 }
 
-export default Portfolio;
+export default PublicPortfolio;

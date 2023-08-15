@@ -29,10 +29,11 @@ function AddSubTopicPopup(props: { blogId: string}) {
     }
   };
 
+  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!setSubTopicNo || !subTitle||!content || !file) {
+    if (!subTitle || !content) {
       alert("Please fill in all fields.");
       return;
     }
@@ -40,27 +41,34 @@ function AddSubTopicPopup(props: { blogId: string}) {
     const formData = new FormData();
     formData.append("subTopicNo", subTopicNo.toString());
     formData.append("blogId", props.blogId);
-    formData.append("subTitle", subTitle)
+    formData.append("subTitle", subTitle);
     formData.append("content", content);
-    formData.append("file", file);
+    
+    // Always include the file field, even if no file is selected
+    formData.append("file", file || new File([], "dummyfile")); // Use a dummy file if file is null
 
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:8080/api/v1/blogSubTopic/create", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/blogSubTopic/create",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       alert("Uploaded successfully!");
       console.log("Uploaded successfully!", response.data);
     } catch (error) {
       alert("Error uploading. Please try again.");
       console.error("Error uploading:", error);
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
     window.location.reload();
   };
+
 
   const handleWindowResize = () => {
     // Check the window width and set the cols attribute accordingly
@@ -79,7 +87,7 @@ function AddSubTopicPopup(props: { blogId: string}) {
   return (
     <>
       <div className="flex justify-center">
-        <form onSubmit={handleSubmit} className="w-1/2">
+        <form onSubmit={handleSubmit} className="w-[90%]">
           <div className="mb-2">
             <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="subTopicNo">
               Sub topic number
@@ -100,7 +108,7 @@ function AddSubTopicPopup(props: { blogId: string}) {
               className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline"
               id="subTitle"
               type="text"
-              placeholder="subTitle"
+              placeholder=""
               value={subTitle}
               onChange={handleSubTitleChange}
             />
@@ -112,15 +120,15 @@ function AddSubTopicPopup(props: { blogId: string}) {
             <textarea
               name="content"
               value={content}
-              className="w-full px-3 py-2 text-gray-700 border rounded-md resize-none focus:outline-none focus:shadow-outline"
+              className="w-full p-2 border rounded-md border-slate-400"
               onChange={handleContentChange}
-              rows={6}
+              rows={10}
             />
             
           </div>
           <div className="mb-2">
           <label className="inline-block mb-2 text-gray-500">
-                Upload Image (jpg)
+                Upload Image (jpg) (Optional)
               </label>
               <div className="flex items-center justify-center w-full">
                 <label className="flex flex-col w-full h-12 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">

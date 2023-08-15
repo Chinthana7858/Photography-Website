@@ -1,12 +1,15 @@
 
-import { ChangeButton, CloseButton } from "../Ui/Atoms/Buttons";
-import Footer from "../Ui/Templates/Footer";
-import NavBar from "../Ui/Templates/NavBar";
-import Slider from "../Ui/Templates/Slider";
-import IntroPopup from "../Popups/IntroPopup";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
-import BasicPhotoPopup from "../Popups/BasicPhotoPopup";
+import BasicPhotoPopup from "../../Popups/BasicPhotoPopup";
+import IntroPopup from "../../Popups/IntroPopup";
+import { ChangeButton, CloseButton } from "../../Ui/Atoms/Buttons";
+import Footer from "../../Ui/Templates/Footer";
+import NavBar from "../../Ui/Templates/NavBar";
+import PublicNavBar from "../../Ui/Templates/PublicNavBar";
+import Slider from "../../Ui/Templates/Slider";
+import PublicSlider from "../../Ui/Templates/PublicSlider";
 import { Link } from "react-router-dom";
 
 interface Details {
@@ -39,7 +42,7 @@ interface Blog  {
   isPublished: boolean,
 };
 
-function HomePage() {
+function PublicHomePage() {
   const [visibleChangeIntro, setVisibleChangeIntro] = useState(false);
   const [visibleChangeIntroPhoto, setVisibleChangeIntroPhoto] = useState(false);
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
@@ -119,10 +122,10 @@ function HomePage() {
   return (
     <div className="flex-col">
       <div className='fixed z-20 w-full'>
-        <NavBar/>
+        <PublicNavBar/>
       </div>
       <div className="pt-24 pb-4">
-        <Slider/>
+        <PublicSlider/>
       </div>
       <div className="" >
 
@@ -139,9 +142,6 @@ function HomePage() {
           <h3 className="px-5 text-justify">
           {details.introduction}
           </h3>
-           <button onClick={() => { setVisibleChangeIntro(true)}} className="px-5">
-           <ChangeButton/>
-           </button>
           </div>
 
         </div>
@@ -149,11 +149,6 @@ function HomePage() {
         <div className="relative my-5 bg-cover px-44 py-36 basis-1/2" style={{
                         backgroundImage: `url(${photoUrl})`,
                       }}>
-           <div className='absolute bottom-0 left-0'>
-           <button onClick={() => { setVisibleChangeIntroPhoto(true)}} className="px-5">
-           <ChangeButton/>
-           </button>
-           </div>
         </div>
         </div> 
 
@@ -165,7 +160,7 @@ function HomePage() {
         {portfolio
         .sort((a, b) => new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime())
         .map((portfolio) => (
-        <Link key={portfolio.id} to={`/Portfolio/${portfolio.id}/Pw-Admin`}>
+        <Link key={portfolio.id} to={`/Portfolio/${portfolio.id}`}>
           <div className="scale-100 hover:opacity-95 hover:scale-105">
             <span className="flex">
               <span className="font-semibold text-md text-slate-600 xs:text-xs sm:text-md basis-1/2">
@@ -194,7 +189,7 @@ function HomePage() {
         {blog
         .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime())
         .map((blog) => (
-        <Link key={blog.id} to={`/PublishedBlog/${blog.id}/Pw-Admin`}>
+        <Link key={blog.id} to={`/PublishedBlog/${blog.id}`}>
           <div className="scale-100 hover:opacity-95 hover:scale-105">
             <span className="flex">
               <span className="font-semibold text-md text-slate-600 xs:text-xs sm:text-md basis-1/2">
@@ -222,7 +217,7 @@ function HomePage() {
 
         <div className="flex flex-col md:flex-row">
 
-        <Link to="/Portfolio/Pw-Admin" className="w-full h-[30vh] bg-cover cursor-pointer hover:scale-95 flex flex-col justify-center items-center md:h-[50vh]">
+        <Link to="/Portfolio" className="w-full h-[30vh] bg-cover cursor-pointer hover:scale-95 flex flex-col justify-center items-center md:h-[50vh]">
         <div className="w-full h-[30vh] bg-cover cursor-pointer hover:scale-95 flex flex-col justify-center items-center md:h-[50vh]" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}https://i.imgur.com/OM7VTcn.jpg)` }}>
         <div className="flex items-center">
         <div className="font-bold text-slate-300 text-7xl md:text-9xl">Gallery</div>
@@ -230,7 +225,7 @@ function HomePage() {
         </div>
         </Link>
 
-        <Link to="/Blogs/Pw-Admin" className="w-full h-[30vh] bg-cover cursor-pointer hover:scale-95 flex flex-col justify-center items-center md:h-[50vh]">
+        <Link to="/Blogs" className="w-full h-[30vh] bg-cover cursor-pointer hover:scale-95 flex flex-col justify-center items-center md:h-[50vh]">
         <div className="w-full h-[30vh] bg-cover cursor-pointer hover:scale-95 flex flex-col justify-center items-center md:h-[50vh]" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}https://i.imgur.com/kri7cZJ.jpg)` }}>
         <div className="flex items-center">
         <div className="font-bold text-slate-300 text-7xl md:text-9xl">Articles</div>
@@ -271,5 +266,5 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default PublicHomePage;
  

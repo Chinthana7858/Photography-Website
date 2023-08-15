@@ -32,8 +32,14 @@ public class BlogController {
 
 
     @GetMapping("/unpublished")
-    public ResponseEntity<List<Blog>> getPublishedBlogs() {
+    public ResponseEntity<List<Blog>> getUnPublishedBlogs() {
         List<Blog> publishedBlogs = blogService.getBlogsByIsPublished(false);
+        return ResponseEntity.ok(publishedBlogs);
+    }
+
+    @GetMapping("/published")
+    public ResponseEntity<List<Blog>> getPublishedBlogs() {
+        List<Blog> publishedBlogs = blogService.getBlogsByIsPublished(true);
         return ResponseEntity.ok(publishedBlogs);
     }
 
@@ -74,6 +80,27 @@ public class BlogController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PutMapping("/{blogId}/updateIsPublished")
+    public ResponseEntity<Blog> updateIsPublished(
+            @PathVariable String blogId,
+            @RequestParam boolean newIsPublished
+    ) {
+        Blog updatedBlog = blogService.updateBlogPublishStatus(blogId, newIsPublished);
+        return ResponseEntity.ok(updatedBlog);
+    }
+
+    @DeleteMapping("/{blogId}")
+    public ResponseEntity<Void> deleteBlogById(@PathVariable String blogId) {
+        blogService.deleteBlogById(blogId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/lastTwoPublished")
+    public ResponseEntity<List<Blog>> getLastTwoPublishedBlogs() {
+        List<Blog> lastTwoPublishedBlogs = blogService.getLastTwoPublishedBlogs();
+        return ResponseEntity.ok(lastTwoPublishedBlogs);
     }
 
 }

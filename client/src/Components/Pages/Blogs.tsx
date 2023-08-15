@@ -5,6 +5,7 @@ import NavBar from "../Ui/Templates/NavBar";
 import BasicPhotoPopup from "../Popups/BasicPhotoPopup";
 import axios from "axios";
 import AddBlogPopup from "../Popups/AddBlogPopup";
+import { Link } from "react-router-dom";
 
 interface Blog  {
   id: string,
@@ -17,6 +18,7 @@ interface Blog  {
 
 function Blogs() {
   const [unpublishedBlog, setUnpublishedBlog] = useState<Blog[]>([]);
+  const [publishedBlog, setPublishedBlog] = useState<Blog[]>([]);
   const [visibleChangeBlogCover, setVisibleChangeBlogCover] = useState(false);
   const [visibleAddBlog, setVisibleAddBlog] = useState(false);
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
@@ -28,6 +30,18 @@ function Blogs() {
       .get(`http://localhost:8080/api/v1/blog/unpublished`)
       .then((response) => {
         setUnpublishedBlog(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching images:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Fetch published
+    axios
+      .get(`http://localhost:8080/api/v1/blog/published`)
+      .then((response) => {
+        setPublishedBlog(response.data);
       })
       .catch((error) => {
         console.error("Error fetching images:", error);
@@ -74,7 +88,7 @@ function Blogs() {
         </div>
 
         <div className='p-6 m-8 bg-red-100'>
-        <div className="text-center pt-[2vh] text-2xl text-slate-700">Unpublished</div>
+        <div className="text-center pt-[2vh] text-2xl text-slate-700 font-semibold">Unpublished</div>
 
         <table>
       <tbody>
@@ -82,20 +96,28 @@ function Blogs() {
     {unpublishedBlog
       .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime())
       .map((unpublishedBlog) => (
-        <a key={unpublishedBlog.id} href={`/UpdateBlog/${unpublishedBlog.id}`}>
-          <div className="">
+        <Link key={unpublishedBlog.id} to={`/UpdateBlog/${unpublishedBlog.id}/Pw-Admin`}>
+          <div className="scale-95 hover:opacity-90 hover:scale-100">
             <div className="text-xl font-semibold text-slate-600 xs:text-sm sm:text-lg">
               {unpublishedBlog.title}
             </div>
-            <div className="">
+            <div className="flex-col">
+            <div>
             <img
             src={unpublishedBlog.blogPhotoUrl}
             alt={`Image ${unpublishedBlog.id}`}
             className="aspect-[3/2]"
             />
             </div>
+            <div>
+            {unpublishedBlog.description.length > 150
+            ? unpublishedBlog.description.substring(0, 150) + " . . ."
+            : unpublishedBlog.description}
+            </div>
+
+            </div>
           </div>
-        </a>
+        </Link>
       ))}
   </div>
 </tbody>
@@ -103,6 +125,46 @@ function Blogs() {
     </table>
 
         </div>
+
+        <div className='p-6 m-8 bg-blue-100'>
+
+        <div className="text-center pt-[2vh] text-2xl text-slate-700 font-semibold">Published</div>
+
+      <table>
+      <tbody>
+      <div className="grid grid-cols-4 gap-4 xs:grid-cols-2">
+      {publishedBlog
+      .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime())
+      .map((publishedBlog) => (
+      <Link key={publishedBlog.id} to={`/PublishedBlog/${publishedBlog.id}/Pw-Admin`}>
+     <div className="scale-95 hover:opacity-90 hover:scale-100">
+     <div className="text-xl font-semibold text-slate-600 xs:text-sm sm:text-lg">
+      {publishedBlog.title}
+     </div>
+     <div className="flex-col">
+     <div>
+     <img
+     src={publishedBlog.blogPhotoUrl}
+     alt={`Image ${publishedBlog.id}`}
+     className="aspect-[3/2]"
+    />
+    </div>
+    <div>
+    {publishedBlog.description.length > 150
+    ? publishedBlog.description.substring(0, 150) + " . . ."
+    : publishedBlog.description}
+    </div>
+
+    </div>
+  </div>
+</Link>
+))}
+</div>
+</tbody>
+
+</table>
+
+</div>
 
 
         {visibleChangeBlogCover && (
@@ -116,8 +178,8 @@ function Blogs() {
 
         {visibleAddBlog && (
         <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen">
-          <div className="md:w-[45%] xs:w-[75%] sm:w-[60%] h-[65%] max-w-3xl rounded-lg bg-blue-50 border border-black">
-          <div className='pl-[95%]'><button onClick={() => setVisibleAddBlog(false)}><CloseButton/></button></div>
+        <div className="w-[90vw] h-[95%] rounded-lg bg-blue-50 border border-black">
+        <div className='pl-[97%]'><button onClick={() => setVisibleAddBlog(false)}><CloseButton/></button></div>
           <AddBlogPopup/>
           </div>
         </div>

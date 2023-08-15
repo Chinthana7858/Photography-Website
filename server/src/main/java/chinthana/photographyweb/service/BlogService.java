@@ -8,6 +8,8 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -79,5 +81,23 @@ public class BlogService {
             // Blog with the given id not found
             return null;
         }
+    }
+
+
+    public Blog updateBlogPublishStatus(String blogId, boolean newIsPublished) {
+        Blog existingBlog = blogRepository.findById(blogId)
+                .orElseThrow(() -> new RuntimeException("Blog with ID " + blogId + " not found."));
+
+        existingBlog.setPublished(newIsPublished);
+        return blogRepository.save(existingBlog);
+    }
+
+    public void deleteBlogById(String blogId){
+        blogRepository.deleteById(blogId);
+    }
+
+    public List<Blog> getLastTwoPublishedBlogs() {
+        Pageable pageable = PageRequest.of(0, 2);
+        return blogRepository.findByIsPublishedTrueOrderByPublishDateDesc(pageable);
     }
 }

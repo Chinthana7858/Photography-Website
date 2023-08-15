@@ -2,12 +2,12 @@ import React, { useState, ChangeEvent, ChangeEventHandler } from "react";
 import { SubmitButton } from "../Ui/Atoms/Buttons";
 import axios from "axios";
 
-function UpdateBlogTitlePopup(props: { blogId: string,title:string}) {
-  const [title, settitle] = useState(props.title);
+function UpdateBlogSubTitlePopup(props: { SubblogId: string,Subtitle:string}) {
+  const [subtitle, setsubtitle] = useState(props.Subtitle);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleTitleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    settitle(event.target.value);
+  const handleSubTitleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setsubtitle(event.target.value);
   };
 
 
@@ -17,11 +17,11 @@ function UpdateBlogTitlePopup(props: { blogId: string,title:string}) {
  
 
     const formData = new FormData();
-    formData.append("title", title);
+    formData.append("subtitle", subtitle);
 
     try {
       setIsLoading(true);
-      const response = await axios.put(`http://localhost:8080/api/v1/blog/title/${props.blogId}`, formData, {
+      const response = await axios.put(`http://localhost:8080/api/v1/blogSubTopic/${props.SubblogId}/updateSubTitle`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -48,11 +48,11 @@ function UpdateBlogTitlePopup(props: { blogId: string,title:string}) {
             </label>
             <input
               className="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline"
-              id="title"
+              id="subtitle"
               type="text"
               placeholder="Title"
-              value={title}
-              onChange={handleTitleChange}
+              value={subtitle}
+              onChange={handleSubTitleChange}
             />
           </div>
           <div className="flex items-center justify-center">
@@ -65,4 +65,4 @@ function UpdateBlogTitlePopup(props: { blogId: string,title:string}) {
   );
 }
 
-export default UpdateBlogTitlePopup;
+export default UpdateBlogSubTitlePopup;

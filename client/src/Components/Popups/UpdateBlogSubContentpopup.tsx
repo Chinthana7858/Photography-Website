@@ -1,14 +1,14 @@
-import React, { useState, ChangeEvent, ChangeEventHandler } from "react";
+import React, { useState, ChangeEventHandler } from "react";
 import { SubmitButton } from "../Ui/Atoms/Buttons";
 import axios from "axios";
 
-function UpdateBlogDescriptionpopup(props: { blogId: string,description:string}) {
-  const [blogdisc, setBlogdic] = useState(props.description);
+function UpdateBlogSubContentpopup(props: { SubblogId: string,content:string}) {
+  const [subblogcontent, setSubBlogcontent] = useState(props.content);
   const [isLoading, setIsLoading] = useState(false);
 
 
-  const handleDiscChange: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
-    setBlogdic(event.target.value);
+  const handleContentChange: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
+    setSubBlogcontent(event.target.value);
   };
 
 
@@ -17,11 +17,11 @@ function UpdateBlogDescriptionpopup(props: { blogId: string,description:string})
 
 
     const formData = new FormData();
-    formData.append("description", blogdisc);
+    formData.append("content", subblogcontent);
 
     try {
       setIsLoading(true);
-      const response = await axios.put(`http://localhost:8080/api/v1/blog/description/${props.blogId}`, formData, {
+      const response = await axios.put(`http://localhost:8080/api/v1/blogSubTopic/content/${props.SubblogId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -50,9 +50,9 @@ function UpdateBlogDescriptionpopup(props: { blogId: string,description:string})
             </label>
             <textarea
               name="description"
-              value={blogdisc}
+              value={subblogcontent}
               className="w-full p-2 border rounded-md border-slate-400"
-              onChange={handleDiscChange}
+              onChange={handleContentChange}
               rows={20}
             />
             
@@ -67,4 +67,4 @@ function UpdateBlogDescriptionpopup(props: { blogId: string,description:string})
   );
 }
 
-export default UpdateBlogDescriptionpopup;
+export default UpdateBlogSubContentpopup;

@@ -5,17 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.Date;
 
 @Data
-@Document(collection = "blogSubTopic")
+@Document(collection = "messages")
 @AllArgsConstructor
 @NoArgsConstructor
-public class BlogSubTopic {
+public class ContactMessage {
     @Id
     private String id;
-    private int subTopicNo;
-    private String blogId;
-    private String subTitle;
-    private String content;
-    private String subTopicPhoto;
+    private String senderName;
+    private String senderEmail;
+    private String subject;
+    private String Message;
+    private Date date;
+    private boolean isRead;
 }

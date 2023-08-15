@@ -7,15 +7,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "blogSubTopic")
+@Document(collection = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-public class BlogSubTopic {
+public class User {
     @Id
-    private String id;
-    private int subTopicNo;
-    private String blogId;
-    private String subTitle;
-    private String content;
-    private String subTopicPhoto;
+    private String email;
+    private String Password;
 }

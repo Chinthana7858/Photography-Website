@@ -4,7 +4,7 @@ import axios from "axios";
 
 function AddBlogPopup() {
   const [title, settitle] = useState("");
-  const description = "Description";
+  const [description, setDescription] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isPublished, setIsPublished] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +26,10 @@ function AddBlogPopup() {
     settitle(event.target.value);
   };
 
+  const handleDescriptionChange: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
+    setDescription(event.target.value);
+  };
+
   const handleFileChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.files && event.target.files.length > 0) {
       setFile(event.target.files[0]);
@@ -35,7 +39,7 @@ function AddBlogPopup() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!title || !file) {
+    if (!title ||!description|| !file) {
       alert("Please fill in all fields.");
       return;
     }
@@ -65,25 +69,13 @@ function AddBlogPopup() {
     window.location.reload();
   };
 
-  const handleWindowResize = () => {
-    // Check the window width and set the cols attribute accordingly
-    if (window.innerWidth < 1000) {
-      // For mobile view, set cols to a smaller value (e.g., 40)
-      setCols(15);
-    } else {
-      // For desktop view, set cols to a larger value (e.g., 80)
-      setCols(35);
-    }
-  };
 
-  const [cols, setCols] = useState(35); // Default cols value for desktop view
-  window.addEventListener("resize", handleWindowResize);
   
   return (
     <>
-      <div className="flex justify-center mt-8">
-        <form onSubmit={handleSubmit} className="w-1/2">
-          <div className="mb-4">
+      <div className="flex justify-center">
+        <form onSubmit={handleSubmit} className="w-[90%]">
+          <div className="mb-2">
             <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="Title">
               Title
             </label>
@@ -96,26 +88,27 @@ function AddBlogPopup() {
               onChange={handleTitleChange}
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-2">
+            <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="Title">
+              Description
+            </label>
+            <textarea
+              name="description"
+              value={description}
+              className="w-full p-2 border rounded-md border-slate-400"
+              onChange={handleDescriptionChange}
+              rows={14}
+            />
+          </div>
+          <div className="mb-2">
           <label className="inline-block mb-2 text-gray-500">
                 Upload Image (jpg)
               </label>
               <div className="flex items-center justify-center w-full">
-                <label className="flex flex-col w-full border-4 border-dashed h-28 hover:bg-gray-100 hover:border-gray-300">
-                  <div className="flex flex-col items-center justify-center pt-7">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-12 h-12 text-gray-400 group-hover:text-gray-600"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                <label className="flex flex-col w-full h-12 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                  <div className="flex flex-col items-center justify-center">
+                    
+                    <p className="pt-3 text-sm tracking-wider text-gray-400 group-hover:text-gray-800">
                       {file ? file.name : "Select a photo"}
                     </p>
                   </div>

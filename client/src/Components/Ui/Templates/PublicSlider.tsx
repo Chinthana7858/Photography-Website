@@ -3,7 +3,6 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 import { ChangeButton } from '../Atoms/Buttons';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 interface Images {
   id: string;
@@ -11,7 +10,7 @@ interface Images {
   imageUrl: string;
   category:string;
 }
-function Slider() {
+function PublicSlider() {
 
  
   const [images, setImages] = useState<Images[]>([]);
@@ -88,13 +87,9 @@ function Slider() {
             <RxDotFilled />
           </div>
         ))}
-
-        <div className=''>
-        <Link to='/UpdateSlider/Pw-Admin'><ChangeButton/></Link>
-        </div>
       </div>
     </div>
   );
 }
 
-export default Slider;
+export default PublicSlider;
